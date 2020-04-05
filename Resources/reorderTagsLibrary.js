@@ -1,7 +1,7 @@
-var _ = (function() {
+(() => {
   var functionLibrary = new PlugIn.Library(new Version("1.0"));
 
-  functionLibrary.reorderTags = function(taskArray) {
+  functionLibrary.reorderTags = function (taskArray) {
     config = PlugIn.find("com.KaitlinSalzke.reorderTags").library(
       "reorderTagsConfig"
     );
@@ -12,23 +12,23 @@ var _ = (function() {
 
     allTags = [];
     if (app.platformName === "macOS") {
-      tags.apply(tag => allTags.push(tag.name));
+      tags.apply((tag) => allTags.push(tag.name));
     } else {
       allTags = flattenedTags;
     }
 
     // iterate through tasks
-    taskArray.forEach(function(task) {
+    taskArray.forEach(function (task) {
       // get assigned tags, except for excluded tags
       assignedTags = [];
-      task.tags.forEach(function(tag) {
+      task.tags.forEach(function (tag) {
         if (!ignoredTags.includes(tag)) {
           assignedTags.push(tag);
         }
       });
 
       // sort assigned tags based on tag index
-      sortedAssignedTags = assignedTags.sort(function(a, b) {
+      sortedAssignedTags = assignedTags.sort(function (a, b) {
         if (firstTags.includes(a)) {
           aTagOrder = firstTags.indexOf(a);
         } else if (lastTags.includes(a)) {
@@ -58,4 +58,3 @@ var _ = (function() {
 
   return functionLibrary;
 })();
-_;
