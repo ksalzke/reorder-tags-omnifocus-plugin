@@ -1,23 +1,20 @@
 {
-	"defaultLocale": "en",
-	"identifier": "com.KaitlinSalzke.reorderTags",
-	"author": "Kaitlin Salzke",
-	"description": "A plugin to re-order tags assigned to OmniFocus tasks",
-	"version": "2.0.0",
-	"actions": [
-		{
-			"identifier": "reorderTags"
-		},
-		{
-			"identifier": "placeholderActionForMac"
-		}
-	],
-	"libraries": [
-		{
-			"identifier": "reorderTagsLibrary"
-		},
-		{
-			"identifier": "reorderTagsConfig"
-		}
-	]
+  "defaultLocale": "en",
+  "identifier": "com.KaitlinSalzke.reorderTags",
+  "author": "Kaitlin Salzke",
+  "description": "A plugin to re-order tags assigned to OmniFocus tasks",
+  "version": "2.0.0",
+  "actions": [
+    {
+      "identifier": "reorderTags"
+    }
+  ],
+  "libraries": [
+    {
+      "identifier": "reorderTagsLibrary"
+    },
+    {
+      "identifier": "reorderTagsConfig"
+    }
+  ]
 }
