@@ -2,29 +2,25 @@
   var reorderTagsConfig = new PlugIn.Library(new Version("1.0"));
 
   reorderTagsConfig.firstTags = function () {
-    return [];
+    firstTags = [];
+    firstTags.concat(
+      tagNamed("Helper Tags").tagNamed("Checklists").flattenedTags
+    );
+    firstTags.concat(
+      tagNamed("Helper Tags").tagNamed("Dependency").flattenedTags
+    );
+    return firstTags;
   };
   reorderTagsConfig.lastTags = function () {
     lastTags = [];
-    tagNamed("Scheduled").apply((tag) => lastTags.push(tag));
+    lastTags.concat(tagNamed("Scheduled").flattenedTags);
+    lastTags.concat(
+      tagNamed("Helper Tags").tagNamed("Tags Complete").tagNamed("⠀")
+    );
     return lastTags;
   };
   reorderTagsConfig.ignoredTags = function () {
     ignoredTags = [];
-
-    // if sortByImportance plugin is installed, exclude those tags
-    sortByImportancePlugin = PlugIn.find("com.KaitlinSalzke.sortByImportance");
-    if (sortByImportancePlugin !== null) {
-      sortByImportanceConfig = sortByImportancePlugin.library(
-        "sortByImportanceConfig"
-      );
-      ignoredTags.push(
-        sortByImportanceConfig.sortedTag(),
-        sortByImportanceConfig.parentSortTag(),
-        sortByImportanceConfig.backupCopyTag()
-      );
-    }
-    console.log(ignoredTags);
     return ignoredTags;
   };
 

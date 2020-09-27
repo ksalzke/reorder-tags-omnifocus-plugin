@@ -10,12 +10,19 @@
     lastTags = config.lastTags();
     ignoredTags = config.ignoredTags();
 
-    allTags = [];
-    if (app.platformName === "macOS") {
-      tags.apply((tag) => allTags.push(tag.name));
-    } else {
-      allTags = flattenedTags;
-    }
+    // create tag order
+    newTagOrder = [];
+    newTagOrder.push(firstTags);
+    flattenedTags.forEach((tag) => {
+      if (
+        tag.status === Tag.Status.Active &&
+        !firstTags.includes(tag) &&
+        !lastTags.includes(tag)
+      ) {
+        newTagOrder.push(tag);
+      }
+    });
+    newTagOrder.push(lastTags);
 
     // iterate through tasks
     taskArray.forEach(function (task) {
@@ -29,23 +36,7 @@
 
       // sort assigned tags based on tag index
       sortedAssignedTags = assignedTags.sort(function (a, b) {
-        if (firstTags.includes(a)) {
-          aTagOrder = firstTags.indexOf(a);
-        } else if (lastTags.includes(a)) {
-          aTagOrder = allTags.length + lastTags.indexOf(a) + 1;
-        } else {
-          aTagOrder = firstTags.length + allTags.indexOf(a);
-        }
-
-        if (firstTags.includes(b)) {
-          bTagOrder = firstTags.indexOf(b);
-        } else if (lastTags.includes(b)) {
-          bTagOrder = allTags.length + lastTags.indexOf(b) + 1;
-        } else {
-          bTagOrder = firstTags.length + allTags.indexOf(b);
-        }
-
-        return aTagOrder > bTagOrder;
+        return newTagOrder.indexOf(a) > newTagOrder.indexOf(b);
       });
 
       // remove all tags from task
