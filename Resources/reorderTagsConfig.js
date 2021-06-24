@@ -5,12 +5,8 @@
     // edit the below to specify the tags that should be applied first
     // THIS SHOULD BE AN ARRAY OF TAG OBJECTS
     firstTags = [];
-    firstTags.concat(
-      tagNamed("Helper Tags").tagNamed("Checklists").flattenedTags
-    );
-    firstTags.concat(
-      tagNamed("Helper Tags").tagNamed("Dependency").flattenedTags
-    );
+    firstTags.concat(tagsMatching("Checklists")[0].flattenedTags);
+    firstTags.concat(tagsMatching("Dependency")[0].flattenedTags);
     return firstTags;
   };
 
@@ -18,10 +14,8 @@
     // edit the below to specify the tags that should be applied last
     // THIS SHOULD BE AN ARRAY OF TAG OBJECTS
     lastTags = [];
-    lastTags.concat(tagNamed("Scheduled").flattenedTags);
-    lastTags.concat(
-      tagNamed("Helper Tags").tagNamed("Tags Complete").tagNamed("⠀")
-    );
+    lastTags.concat(tagsMatching("Scheduled")[0].flattenedTags);
+    lastTags.concat(tagsMatching("⠀")[0]);
     return lastTags;
   };
   reorderTagsConfig.ignoredTags = function () {
