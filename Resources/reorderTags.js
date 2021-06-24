@@ -1,13 +1,14 @@
+/* global PlugIn */
 (() => {
-  var action = new PlugIn.Action(function (selection, sender) {
-    functionLibrary = this.reorderTagsLibrary;
+  const action = new PlugIn.Action(function (selection, sender) {
+    const functionLibrary = this.reorderTagsLibrary
 
-    functionLibrary.reorderTags(selection.tasks);
-  });
+    functionLibrary.reorderTags(selection.tasks)
+  })
 
   action.validate = function (selection, sender) {
-    return selection.tasks.length > 0;
-  };
+    return selection.tasks.length > 0
+  }
 
-  return action;
-})();
+  return action
+})()
