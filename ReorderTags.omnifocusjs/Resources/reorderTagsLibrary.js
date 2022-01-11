@@ -16,19 +16,13 @@
 
     // iterate through tasks
     taskArray.forEach(function (task) {
-      // get assigned tags, except for excluded tags
-      const assignedTags = []
-      task.tags.forEach(function (tag) {
-          assignedTags.push(tag)
-      })
-
       // sort assigned tags based on tag index
-      const sortedAssignedTags = assignedTags.sort(function (a, b) {
+      const sortedAssignedTags = task.tags.sort(function (a, b) {
         return newTagOrder.indexOf(a) > newTagOrder.indexOf(b)
       })
 
       // remove all tags from task
-      task.removeTags(assignedTags)
+      task.removeTags(task.tags)
 
       // re-apply tags in order
       task.addTags(sortedAssignedTags)
