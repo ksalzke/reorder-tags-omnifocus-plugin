@@ -15,12 +15,6 @@
     const lastTags = [...tagsMatching('Scheduled')[0].flattenedTags, tagsMatching('⠀')[0]]
     return lastTags
   }
-  reorderTagsConfig.ignoredTags = function () {
-    // edit the below to specify the tags that should be ignored
-    // THIS SHOULD BE AN ARRAY OF TAG OBJECTS
-    const ignoredTags = []
-    return ignoredTags
-  }
 
   return reorderTagsConfig
 })()
