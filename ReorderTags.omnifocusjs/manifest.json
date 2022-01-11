@@ -6,7 +6,8 @@
   "version": "2.0.0",
   "actions": [
     {
-      "identifier": "reorderTags"
+      "identifier": "reorderTags",
+      "image": "shuffle.circle"
     }
   ],
   "libraries": [
