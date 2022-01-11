@@ -11,19 +11,9 @@
     const lastTags = config.lastTags()
     const ignoredTags = config.ignoredTags()
 
-    // create tag order
-    const newTagOrder = []
-    newTagOrder.push(firstTags)
-    flattenedTags.forEach((tag) => {
-      if (
-        tag.status === Tag.Status.Active &&
-        !firstTags.includes(tag) &&
-        !lastTags.includes(tag)
-      ) {
-        newTagOrder.push(tag)
-      }
-    })
-    newTagOrder.push(lastTags)
+    const middleTags = flattenedTags.filter(tag => ![...firstTags, ...lastTags, ...ignoredTags].includes(tag))
+
+    const newTagOrder = [...firstTags, ...middleTags, ...lastTags]
 
     // iterate through tasks
     taskArray.forEach(function (task) {
