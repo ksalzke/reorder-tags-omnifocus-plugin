@@ -9,9 +9,8 @@
 
     const firstTags = config.firstTags()
     const lastTags = config.lastTags()
-    const ignoredTags = config.ignoredTags()
 
-    const middleTags = flattenedTags.filter(tag => ![...firstTags, ...lastTags, ...ignoredTags].includes(tag))
+    const middleTags = flattenedTags.filter(tag => ![...firstTags, ...lastTags].includes(tag))
 
     const newTagOrder = [...firstTags, ...middleTags, ...lastTags]
 
@@ -20,9 +19,7 @@
       // get assigned tags, except for excluded tags
       const assignedTags = []
       task.tags.forEach(function (tag) {
-        if (!ignoredTags.includes(tag)) {
           assignedTags.push(tag)
-        }
       })
 
       // sort assigned tags based on tag index
