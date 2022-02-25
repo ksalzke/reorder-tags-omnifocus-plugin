@@ -55,7 +55,7 @@
   functionLibrary.reorderForm = (tags) => {
 
     const createFieldsFrom = (tags) => {
-      const numbers = [...Array(tags.length + 1).keys().map(i => i+1) ];
+      const numbers = [...Array(tags.length + 1).keys()].map(i => i+1)
       for (let i = 1; i <= tags.length; i++) {
         const tag = tags[i - 1]
         const key = `${tag.id.primaryKey}-position`
@@ -82,7 +82,19 @@
       if (hasChanged(form)) {
         // update ordering
         const orderedTags = tags.sort((t1, t2) => {
-          return form.values[`${t1.id.primaryKey}-position`] - form.values[`${t2.id.primaryKey}-position`]
+
+          const t1newPosition = form.values[`${t1.id.primaryKey}-position`]
+          const t2newPosition = form.values[`${t2.id.primaryKey}-position`]
+
+          // if they have the same number, put the one that has changed first (based on index of field)
+          if (t1newPosition === t2newPosition) {
+            const t1field = form.fields.find(field => field.key === `${t1.id.primaryKey}-position`)
+            const t1oldPosition = form.fields.indexOf(t1field) + 1
+            if (t1oldPosition !== t1newPosition) return -1
+            else return 1
+          }
+
+          return t1newPosition - t2newPosition
         })
         createFieldsFrom(orderedTags)
       }
