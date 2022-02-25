@@ -52,5 +52,46 @@
     })
   }
 
+  functionLibrary.reorderForm = (tags) => {
+
+    const createFieldsFrom = (tags) => {
+      const numbers = [...Array(tags.length + 1).keys().map(i => i+1) ];
+      for (let i = 1; i <= tags.length; i++) {
+        const tag = tags[i - 1]
+        const key = `${tag.id.primaryKey}-position`
+        const existingField = form.fields.find(field => field.key === key)
+        if (existingField !== undefined) form.removeField(existingField)
+        form.addField(new Form.Field.Option(key, tag.name, numbers, numbers.map(n => n.toString()), i, null))
+      }
+    }
+
+    const form = new Form()
+    createFieldsFrom(tags)
+
+    form.validate = (form) => {
+      const hasChanged = (form) => {
+        for (let i = 1; i <= form.fields.length; i++) {
+          const field = form.fields[i - 1]
+          const fieldKey = field.key
+          const fieldValue = form.values[fieldKey]
+          if (fieldValue !== i & fieldValue !== undefined) return true
+        }
+        return false
+      }
+
+      if (hasChanged(form)) {
+        // update ordering
+        const orderedTags = tags.sort((t1, t2) => {
+          return form.values[`${t1.id.primaryKey}-position`] - form.values[`${t2.id.primaryKey}-position`]
+        })
+        createFieldsFrom(orderedTags)
+      }
+      return true
+    }
+
+    return form
+
+  }
+
   return functionLibrary
 })()
