@@ -17,6 +17,10 @@
 
     await secondForm.show('Order First Tags', 'OK')
 
+    const orderedTags = secondForm.fields.map(field => Tag.byIdentifier(field.key))
+
+    
+
 
 
 

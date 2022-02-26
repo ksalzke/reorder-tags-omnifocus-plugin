@@ -57,7 +57,7 @@
       const numbers = [...Array(tags.length).keys()].map(i => i+1)
       for (let i = 1; i <= tags.length; i++) {
         const tag = tags[i - 1]
-        const key = `${tag.id.primaryKey}-position`
+        const key = tag.id.primaryKey
         const existingField = form.fields.find(field => field.key === key)
         if (existingField !== undefined) form.removeField(existingField)
         form.addField(new Form.Field.Option(key, tag.name, numbers, numbers.map(n => n.toString()), i, null))
@@ -81,8 +81,8 @@
       if (hasChanged(form)) {
         // update ordering
         const orderedTags = tags.sort((t1, t2) => {
-          const t1newPosition = form.values[`${t1.id.primaryKey}-position`]
-          const t2newPosition = form.values[`${t2.id.primaryKey}-position`]
+          const t1newPosition = form.values[t1.id.primaryKey]
+          const t2newPosition = form.values[t2.id.primaryKey]
 
           // if new positions are different, put in correct order
           if (t1newPosition !== t2newPosition) return t1newPosition - t2newPosition
@@ -90,15 +90,15 @@
           // otherwise, one of the two tags has been changed (new position is the same)
 
           // which tag is the one that has been changed?
-          const t1field = form.fields.find(field => field.key === `${t1.id.primaryKey}-position`)
+          const t1field = form.fields.find(field => field.key === t1.id.primaryKey)
           const t1oldPosition = form.fields.indexOf(t1field) + 1
           const t1changed = t1oldPosition !== t1newPosition
           const changedTag = t1changed ? t1: t2
 
           // for the changed tag, compare the old and new positions
-          const oldField = form.fields.find(field => field.key === `${changedTag.id.primaryKey}-position`)
+          const oldField = form.fields.find(field => field.key === changedTag.id.primaryKey)
           const oldPos = form.fields.indexOf(oldField) + 1
-          const newPos = form.values[`${changedTag.id.primaryKey}-position`]
+          const newPos = form.values[changedTag.id.primaryKey]
 
           // sort - if new position > old position, unchanged tag first; else changed tag first
           if (newPos > oldPos && t1changed) return 1
@@ -112,7 +112,6 @@
     }
 
     return form
-
   }
 
   return functionLibrary
