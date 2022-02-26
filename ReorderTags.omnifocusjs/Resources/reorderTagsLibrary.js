@@ -30,8 +30,8 @@
 
   functionLibrary.reorderTags = function (taskArray) {
 
-    const firstTags = functionLibrary.getTags('first')
-    const lastTags = functionLibrary.getTags('last')
+    const firstTags = functionLibrary.getTags('first').flatMap(tag => [tag, ...tag.children])
+    const lastTags = functionLibrary.getTags('last').flatMap(tag => [tag, ...tag.children])
 
     const middleTags = flattenedTags.filter(tag => ![...firstTags, ...lastTags].includes(tag))
 
