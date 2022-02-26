@@ -45,42 +45,28 @@
 						<key>ThenActions</key>
 						<array>
 							<dict>
-								<key>Action</key>
-								<string>PercentEncodeForURL</string>
 								<key>ActionUID</key>
-								<integer>7990</integer>
-								<key>Destination</key>
-								<string>Variable</string>
-								<key>DestinationVariable</key>
-								<string>Script</string>
-								<key>MacroActionType</key>
-								<string>Filter</string>
-								<key>Source</key>
-								<string>Text</string>
-								<key>Text</key>
-								<string>PlugIn.find('com.KaitlinSalzke.reorderTags').action('reorderAllTags').perform()</string>
-							</dict>
-							<dict>
-								<key>ActionUID</key>
-								<integer>7991</integer>
-								<key>MacroActionType</key>
-								<string>SetVariableToText</string>
-								<key>Text</key>
-								<string>omnifocus://localhost/omnijs-run?script=%Script%</string>
-								<key>Variable</key>
-								<string>URL</string>
-							</dict>
-							<dict>
-								<key>ActionUID</key>
-								<integer>7992</integer>
-								<key>IsDefaultApplication</key>
+								<integer>11059</integer>
+								<key>DisplayKind</key>
+								<string>None</string>
+								<key>HonourFailureSettings</key>
 								<true/>
+								<key>IncludeStdErr</key>
+								<false/>
 								<key>MacroActionType</key>
-								<string>OpenURL</string>
+								<string>ExecuteAppleScript</string>
+								<key>Path</key>
+								<string></string>
+								<key>Text</key>
+								<string>tell application "OmniFocus"	evaluate javascript "PlugIn.find('com.KaitlinSalzke.reorderTags').action('reorderAllTags').perform()"end tell</string>
 								<key>TimeOutAbortsMacro</key>
 								<true/>
-								<key>URL</key>
-								<string>%URL%</string>
+								<key>TrimResults</key>
+								<true/>
+								<key>TrimResultsNew</key>
+								<true/>
+								<key>UseText</key>
+								<true/>
 							</dict>
 						</array>
 						<key>TimeOutAbortsMacro</key>
@@ -90,7 +76,7 @@
 				<key>CreationDate</key>
 				<real>666064347.42388201</real>
 				<key>ModificationDate</key>
-				<real>667546252.67883801</real>
+				<real>667549873.0244</real>
 				<key>Name</key>
 				<string>Run OF Plug-In Action: Reorder Tags For All Tasks</string>
 				<key>Triggers</key>
