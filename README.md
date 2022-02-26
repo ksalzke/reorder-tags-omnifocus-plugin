@@ -50,6 +50,7 @@ The user is prompted by up to four dialogues:
 
 4. If more than one tag is selected at Step 3, reorder these tags as desired.
 
+Note that 'first tags' and 'last tags' automatically include all tags that are children of the selected tag when tasks have their tags reordered.
 
 # Functions
 
@@ -69,7 +70,7 @@ Given a position ('first' or 'last') returns the array of tags that have been se
 
 Reorders the given tags for each of the tasks in the provided array of tasks.
 
-By default, the order used will be the same as the 'Tags' hierarchy in the database. Editing the preferences allows the user to modify this order by specifying tags that should be applied first or last.
+By default, the order used will be the same as the 'Tags' hierarchy in the database. Editing the preferences allows the user to modify this order by specifying tags that should be applied first or last. 
 
 ## `reorderForm (tags: Array<Tag>) : Form`
 
