@@ -9,7 +9,6 @@
     { "identifier": "preferences", "image": "gearshape.circle.fill" }
   ],
   "libraries": [
-    { "identifier": "reorderTagsLibrary" },
-    { "identifier": "reorderTagsConfig" }
+    { "identifier": "reorderTagsLibrary" }
   ]
 }

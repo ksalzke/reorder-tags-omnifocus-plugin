@@ -22,16 +22,16 @@
     const syncedPrefs = functionLibrary.loadSyncedPrefs()
     const tagIDs = syncedPrefs.read(`${position}TagIDs`)
     if (tagIDs === null) return []
-    else return tagIDs.map(id => Tag.byIdentifier(id)).filter(tag => tag !== null)
+    const tags = tagIDs.map(id => Tag.byIdentifier(id)).filter(tag => tag !== null)
+    if (position === 'first') return tags
+    // exclude tags that are already in the 'first' list from being included as 'last' tags
+    else if (position === 'last') return tags.filter(tag => !functionLibrary.getTags('first').includes(tag))
   }
 
   functionLibrary.reorderTags = function (taskArray) {
-    const config = PlugIn.find('com.KaitlinSalzke.reorderTags').library(
-      'reorderTagsConfig'
-    )
 
     const firstTags = functionLibrary.getTags('first')
-    const lastTags = config.lastTags()
+    const lastTags = functionLibrary.getTags('last')
 
     const middleTags = flattenedTags.filter(tag => ![...firstTags, ...lastTags].includes(tag))
 
