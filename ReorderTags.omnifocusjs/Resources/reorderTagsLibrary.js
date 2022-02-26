@@ -53,9 +53,8 @@
   }
 
   functionLibrary.reorderForm = (tags) => {
-
     const createFieldsFrom = (tags) => {
-      const numbers = [...Array(tags.length + 1).keys()].map(i => i+1)
+      const numbers = [...Array(tags.length).keys()].map(i => i+1)
       for (let i = 1; i <= tags.length; i++) {
         const tag = tags[i - 1]
         const key = `${tag.id.primaryKey}-position`
@@ -82,19 +81,30 @@
       if (hasChanged(form)) {
         // update ordering
         const orderedTags = tags.sort((t1, t2) => {
-
           const t1newPosition = form.values[`${t1.id.primaryKey}-position`]
           const t2newPosition = form.values[`${t2.id.primaryKey}-position`]
 
-          // if they have the same number, put the one that has changed first (based on index of field)
-          if (t1newPosition === t2newPosition) {
-            const t1field = form.fields.find(field => field.key === `${t1.id.primaryKey}-position`)
-            const t1oldPosition = form.fields.indexOf(t1field) + 1
-            if (t1oldPosition !== t1newPosition) return -1
-            else return 1
-          }
+          // if new positions are different, put in correct order
+          if (t1newPosition !== t2newPosition) return t1newPosition - t2newPosition
 
-          return t1newPosition - t2newPosition
+          // otherwise, one of the two tags has been changed (new position is the same)
+
+          // which tag is the one that has been changed?
+          const t1field = form.fields.find(field => field.key === `${t1.id.primaryKey}-position`)
+          const t1oldPosition = form.fields.indexOf(t1field) + 1
+          const t1changed = t1oldPosition !== t1newPosition
+          const changedTag = t1changed ? t1: t2
+
+          // for the changed tag, compare the old and new positions
+          const oldField = form.fields.find(field => field.key === `${changedTag.id.primaryKey}-position`)
+          const oldPos = form.fields.indexOf(oldField) + 1
+          const newPos = form.values[`${changedTag.id.primaryKey}-position`]
+
+          // sort - if new position > old position, unchanged tag first; else changed tag first
+          if (newPos > oldPos && t1changed) return 1
+          if (newPos > oldPos && !t1changed) return -1
+          if (newPos < oldPos && t1changed) return -1
+          if (newPos < oldPos && !t1changed) return 1
         })
         createFieldsFrom(orderedTags)
       }
