@@ -28,7 +28,7 @@
     else if (position === 'last') return tags.filter(tag => !functionLibrary.getTags('first').includes(tag))
   }
 
-  functionLibrary.reorderTags = function (taskArray) {
+  functionLibrary.reorderTags = taskArray => {
 
     const firstTags = functionLibrary.getTags('first').flatMap(tag => [tag, ...tag.flattenedChildren])
     const lastTags = functionLibrary.getTags('last').flatMap(tag => [tag, ...tag.flattenedChildren])
