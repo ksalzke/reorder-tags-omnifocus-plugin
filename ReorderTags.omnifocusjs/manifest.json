@@ -5,7 +5,8 @@
   "description": "A plugin to re-order tags assigned to OmniFocus tasks",
   "version": "2.1.0",
   "actions": [
-    { "identifier": "reorderTags", "image": "shuffle.circle" },
+    { "identifier": "reorderSelectedTags", "image": "shuffle" },
+    { "identifier": "reorderAllTags", "image": "shuffle.circle" },
     { "identifier": "preferences", "image": "gearshape.circle.fill" }
   ],
   "libraries": [
