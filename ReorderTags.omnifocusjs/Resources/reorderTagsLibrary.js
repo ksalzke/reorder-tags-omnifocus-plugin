@@ -30,7 +30,7 @@
       'reorderTagsConfig'
     )
 
-    const firstTags = config.firstTags()
+    const firstTags = functionLibrary.getTags('first')
     const lastTags = config.lastTags()
 
     const middleTags = flattenedTags.filter(tag => ![...firstTags, ...lastTags].includes(tag))
