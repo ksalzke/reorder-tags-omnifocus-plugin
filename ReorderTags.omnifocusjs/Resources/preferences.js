@@ -8,24 +8,24 @@
     const firstTags = lib.getTags('first')
     const lastTags = lib.getTags('last')
 
-    // configure first tags
-    const firstSelectForm = new Form()
-    const firstFlattenedTags = [...firstTags, ...flattenedTags.filter(tag => !firstTags.includes(tag))]
-    firstSelectForm.addField(new Form.Field.MultipleOptions('firstTags', 'First Tags', firstFlattenedTags, firstFlattenedTags.map(t => t.name), firstTags))
-    await firstSelectForm.show('SELECT FIRST TAGS.\nThese are tags that should be put first when the \'Reorder Tags\' action is run. \nIf more than one tag is selected, you will be able to select the order in the next screen.', 'Continue')
+    // configure a set of tags
+    const configureTags = async (position, formPrompt) => {
+      const startingTags = lib.getTags(position)
+      const selectForm = new Form()
+      const positionTitleCase = position.charAt(0).toUpperCase() + position.substr(1).toLowerCase()
+      const tags = [...startingTags, ...flattenedTags.filter(tag => !startingTags.includes(tag))]
+      selectForm.addField(new Form.Field.MultipleOptions('tags', `Select ${positionTitleCase} Tags`, tags, tags.map(t => t.name), startingTags))
+      await selectForm.show(formPrompt, 'Continue')
 
-    if (firstSelectForm.values.firstTags.length > 1) {
-      const firstOrderForm = lib.reorderForm(firstSelectForm.values.firstTags)
-      await firstOrderForm.show('Order First Tags', 'OK')
-      const orderedTags = firstOrderForm.fields.map(field => Tag.byIdentifier(field.key))
-      syncedPrefs.write('firstTagIDs', orderedTags.map(tag => tag.id.primaryKey))
-    } else syncedPrefs.write('firstTagIDs', firstSelectForm.values.firstTags.map(tag => tag.id.primaryKey))
+      if (selectForm.values.tags.length > 1) {
+        const orderForm = lib.reorderForm(selectForm.values.tags)
+        await orderForm.show(`Order ${positionTitleCase} Tags`, 'OK')
+        const orderedTags = orderForm.fields.map(field => Tag.byIdentifier(field.key))
+        syncedPrefs.write(`${position}TagIDs`, orderedTags.map(tag => tag.id.primaryKey))
+      } else syncedPrefs.write(`${position}TagIDs`, selectForm.values.tags.map(tag => tag.id.primaryKey))
+    }
 
-    
-
-
-  
-
+    await configureTags('first', 'SELECT FIRST TAGS.\nThese are tags that should be put first when the \'Reorder Tags\' action is run. \nIf more than one tag is selected, you will be able to select the order in the next screen.')
 
 
   })
