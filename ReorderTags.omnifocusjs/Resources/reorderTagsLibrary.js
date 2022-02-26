@@ -38,18 +38,29 @@
     const newTagOrder = [...firstTags, ...middleTags, ...lastTags]
 
     // iterate through tasks
-    taskArray.forEach(function (task) {
+    for (const task of taskArray) {
       // sort assigned tags based on tag index
       const sortedAssignedTags = task.tags.sort(function (a, b) {
         return newTagOrder.indexOf(a) > newTagOrder.indexOf(b)
       })
 
-      // remove all tags from task
-      task.removeTags(task.tags)
+      // check if already sorted
+      const tagsSorted = (task) => {
+        for (let i = 0; i < task.tags.length; i++) {
+          if (task.tags[i] !== sortedAssignedTags[i]) return false
+        }
+        return true
+      }
 
-      // re-apply tags in order
-      task.addTags(sortedAssignedTags)
-    })
+      // if not already sorted, remove and re-add tags
+      if (!tagsSorted(task)) {
+        // remove all tags from task
+        task.removeTags(task.tags)
+
+        // re-apply tags in order
+        task.addTags(sortedAssignedTags)
+      }
+    }
   }
 
   functionLibrary.reorderForm = (tags) => {
