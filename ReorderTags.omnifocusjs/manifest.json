@@ -3,7 +3,7 @@
   "identifier": "com.KaitlinSalzke.reorderTags",
   "author": "Kaitlin Salzke",
   "description": "A plugin to re-order tags assigned to OmniFocus tasks",
-  "version": "3.0.0",
+  "version": "3.0.1",
   "actions": [
     {
       "identifier": "reorderSelectedTags",

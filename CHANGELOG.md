@@ -1,3 +1,12 @@
+## [3.0.1](https://github.com/ksalzke/reorder-tags-omnifocus-plugin/compare/v3.0.0...v3.0.1) (2022-02-26)
+
+
+### Bug Fixes
+
+* :bug: update KM macro to use AppleScript rather than URL so that OF is not given focus ([3692b45](https://github.com/ksalzke/reorder-tags-omnifocus-plugin/commit/3692b4555ec6dbd4391eeda712b81e4ccf25eaa3))
+
+
+
 # [3.0.0](https://github.com/ksalzke/reorder-tags-omnifocus-plugin/compare/v2.1.0...v3.0.0) (2022-02-26)
 
 
